@@ -145,23 +145,6 @@ GenerateClassCluster=0
 DocumentUniqueId=CMDOUUZN
 
 [Document7]
-DocumentPath=..\..\..\..\Users\Jade\Documents\PCBII_COPY.PcbDoc
-AnnotationEnabled=1
-AnnotateStartValue=1
-AnnotationIndexControlEnabled=0
-AnnotateSuffix=
-AnnotateScope=All
-AnnotateOrder=-1
-DoLibraryUpdate=1
-DoDatabaseUpdate=1
-ClassGenCCAutoEnabled=1
-ClassGenCCAutoRoomEnabled=1
-ClassGenNCAutoScope=None
-DItemRevisionGUID=
-GenerateClassCluster=0
-DocumentUniqueId=XMCAPUVR
-
-[Document8]
 DocumentPath=Outjob.OutJob
 AnnotationEnabled=1
 AnnotateStartValue=1
@@ -177,6 +160,23 @@ ClassGenNCAutoScope=None
 DItemRevisionGUID=
 GenerateClassCluster=0
 DocumentUniqueId=
+
+[Document8]
+DocumentPath=PCBII_COPY.PcbDoc
+AnnotationEnabled=1
+AnnotateStartValue=1
+AnnotationIndexControlEnabled=0
+AnnotateSuffix=
+AnnotateScope=All
+AnnotateOrder=-1
+DoLibraryUpdate=1
+DoDatabaseUpdate=1
+ClassGenCCAutoEnabled=1
+ClassGenCCAutoRoomEnabled=1
+ClassGenNCAutoScope=None
+DItemRevisionGUID=
+GenerateClassCluster=0
+DocumentUniqueId=OVFEXQMH
 
 [GeneratedDocument1]
 DocumentPath=Project Outputs for Car_PCB\Design Rule Check - PCBII.html
