@@ -1,0 +1,974 @@
+<html>
+<head>
+<META http-equiv="Content-Type" content="text/html">
+<style type="text/css">
+		h1, h2, h3, h4, h5, h6 {
+			font-family : segoe ui;
+			color : black;
+			background-color : #EDE7D9;
+			padding: 0.3em;
+		}
+
+		h1 {
+			font-size: 1.2em;
+		}		
+
+		h2 {
+			font-size: 1.2em;
+		}
+
+		body {
+			font-family : segoe ui;
+		}
+
+		td, th {
+			padding: 0.5em;
+			text-align : left;
+			width: 10em;
+		}
+		th {
+			background-color : #EEEEEE;
+
+		}
+		th.column1, td.column1 {
+			text-align: left;
+			width : auto;
+		}
+		table {
+			width : 100%;
+			font-size: 0.9em;
+		}
+
+		.DRC_summary_header {
+			padding-bottom : 0.1em;
+			border : 0px solid black;
+			width: 100%;
+			align: left;
+		}
+
+		.DRC_summary_header_col1,
+		.DRC_summary_header_col2, 
+		.DRC_summary_header_col3 {
+			color : black;
+			font-size:100%;
+			padding : 0em;
+			padding-top : 0.2em;
+			padding-bottom 0.2em;
+			border : 0px solid black;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.DRC_summary_header_col1 {
+			font-weight: bold;
+			width: 8em;
+		}
+
+		.DRC_summary_header_col2 {
+			width: 0.1em;
+		
+		}
+
+		.DRC_summary_header_col3 {
+			width : auto;
+		}
+
+		.header_holder {
+		    Width = 100%;
+		    border = 0px solid green;
+		    padding = 0;
+		}
+
+
+		.front_matter, .front_matter_column1, .front_matter_column2, .front_matter_column3
+		{
+			left : 0;
+			top : 0;
+			padding: 0em;
+			padding-top : 0.1em;
+			border : 0px solid black;
+			width : 100%;
+			vertical-align: top;
+			text-align: left;
+		}
+
+		.front_matter_column1 {
+			width : 8em;
+			font-weight: bold;
+		}
+
+		.front_matter_column2 {
+			width: 0.1em;
+		}
+
+		.front_matter_column3 {
+			width : auto;
+		}
+
+		.total_column1, .total_column {
+			font-weight : bold;
+		}
+		.total_column1 {
+			text-align : left;
+		}
+		.warning, .error {
+			color : red;
+			font-weight : bold;
+		}
+		tr.onmouseout_odd {
+			background-color : #white;
+		}
+		tr.onmouseout_even { 
+			background-color : #FAFAFA;
+		}
+		tr.onmouseover_odd, tr.onmouseover_even { 
+			background-color : #EEEEEE;
+		} 
+		a:link, a:visited, .q a:link,.q a:active,.q {
+			color: #21489e; 
+		}
+		a:link.callback, a:visited.callback { 
+			color: #21489e;
+		}
+		a:link.customize, a:visited.customize {
+			color: #C0C0C0;
+			position: absolute; 
+			right: 10px;
+		}	
+		p.contents_level1 {
+			font-weight : bold;
+			font-size : 110%;
+			margin : 0.5em;
+		}
+		p.contents_level2 {
+			position : relative;
+			left : 20px;
+			margin : 0.5em;
+		}
+	</style><script type="text/javascript">
+		function coordToMils(coord) {
+			var number = coord / 10000;
+			
+			if (number != number.toFixed(3))
+				number = number.toFixed(3);
+
+			return number + 'mil'
+		}
+
+		function coordToMM(coord) {
+			var number = 0.0254 * coord / 10000;
+			
+			if (number != number.toFixed(4))
+				number = number.toFixed(4);
+			
+			return number + 'mm'
+		}
+	
+		function convertCoord(coordNode, units) {
+			for (var i = 0; i < coordNode.childNodes.length; i++) {
+				coordNode.removeChild(coordNode.childNodes[i]);
+			}
+
+			var coord = coordNode.getAttribute('value');
+			if (coord != null) {
+				if (units == 'mm') {
+					textNode = document.createTextNode(coordToMM(coord));
+					coordNode.appendChild(textNode);
+				} else if (units == 'mil') {
+					textNode = document.createTextNode(coordToMils(coord));		
+					coordNode.appendChild(textNode);	
+				}
+			}
+		}
+	
+		function convertUnits(unitNode, units) {
+			for (var i = 0; i < unitNode.childNodes.length; i++) {
+				unitNode.removeChild(unitNode.childNodes[i]);		
+			}
+		
+			textNode = document.createTextNode(units); 
+			unitNode.appendChild(textNode);
+		}
+	
+		function changeUnits(radio_input, units) {
+			if (radio_input.checked) {
+			
+				var elements = document.getElementsByName('coordinate');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertCoord(elements[i], units);
+					}
+				}
+	
+				var elements = document.getElementsByName('units');
+				if (elements) {
+					for (var i = 0; i < elements.length; i++) {
+						convertUnits(elements[i], units);
+					}
+				}
+			}
+		}
+	</script><title>Design Rule Verification Report</title>
+</head>
+<body onload=""><img ALT="Altium" src="
+			file://C:\Users\Public\Documents\Altium\AD19\Templates\AD_logo.png
+		"><h1>Design Rule Verification Report</h1>
+<table class="header_holder">
+<td class="column1">
+<table class="front_matter">
+<tr class="front_matter">
+<td class="front_matter_column1">Date:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">3/3/2020</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">11:34:20 PM</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Elapsed Time:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3">00:00:01</td>
+</tr>
+<tr class="front_matter">
+<td class="front_matter_column1">Filename:</td>
+<td class="front_matter_column2"></td>
+<td class="front_matter_column3"><a href="file:///C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc" class="file"><acronym title="C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc">C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc</acronym></a></td>
+</tr>
+</table>
+</td>
+<td class="column2">
+<table class="DRC_summary_header">
+<tr>
+<td class="DRC_summary_header_col1">Warnings:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3">0</td></tr>
+<tr>
+<td class="DRC_summary_header_col1">Rule Violations:</td>
+<td class="DRC_summary_header_col2"></td>
+<td class="DRC_summary_header_col3" style="color : red">206</td></tr>
+</table>
+</td>
+</table><a name="IDJKAZE2EBRPRTEZ33CATVFZC4INJNUPOZODOJGKNEXWW0KKDEWDAE"><h2>Summary</h2></a><table>
+<tr>
+<th class="column1">Warnings</th>
+<th class="column2">Count</th>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">0</td>
+</tr>
+</table><br><table>
+<tr>
+<th class="column1">Rule Violations</th>
+<th class="column2">Count</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQCOHAQE23PK3K5VWB35ZBS133CFKS4CAVP0P4EKBYZFAKNF0AZFI">Clearance Constraint (Gap=10mil) (All),(All)</a></td>
+<td class="column2">18</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDZ3Z1WSRVI5TBITF2BCFRLD3SLPFFBL42G21NBRLEB43CSFYL4VGF">Short-Circuit Constraint (Allowed=No) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDRDRUE0M1BIPGIJ3IHNG2G2PHNDN1BIQYMX2CZBEUYGNYY4M1XQD">Un-Routed Net Constraint ( (All) )</a></td>
+<td class="column2">25</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDT5HLQRF51Q2HLVPKMJ4XGLBM2FSWNSPPA4YB5FD3VDNW40FWIPYL">Modified Polygon (Allow modified: No), (Allow shelved: No)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDQMK5S5FGECFUHWWGBCRB1UTKCLYKNPCCM223MFH4V3HHXPDSRCLK">Width Constraint (Min=5mil) (Max=20mil) (Preferred=10mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDLTS1R4PY5KWPEE2QFPEEV5ET3JJUEYST4WKPUOFOL0OKMHQ04ZN">Power Plane Connect Rule(Relief Connect )(Expansion=20mil) (Conductor Width=10mil) (Air Gap=10mil) (Entries=4) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDH44BURUP4G2OBCB1KF2D0IT3MQBSRFNOTFHECKMWHHP14SBRTLE">Hole Size Constraint (Min=1mil) (Max=100mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDVU2F3RFG2S42NML5JQHB44T4EHBJG0PPYPNPOXDPKQGNQNZQ5SYI">Hole To Hole Clearance (Gap=10mil) (All),(All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#ID0U21HYTYCXDOKZTJBHUMXLXY5LIFAFX0D2HEXFFEQISMQC3MJ41O">Minimum Solder Mask Sliver (Gap=6mil) (All),(All)</a></td>
+<td class="column2">79</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDFYBUX1WJM5MRE2CQQWY0SQH1QGVGIO4FOBDZALJO25LTA34JNJRJ">Silk To Solder Mask (Clearance=6mil) (IsPad),(All)</a></td>
+<td class="column2">16</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDYR44J03GZZ21NZVQBLWKGSPIMJCHHHRJD1NUUGKAUZNWT0FJ4ICH">Silk to Silk (Clearance=6mil) (All),(All)</a></td>
+<td class="column2">2</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#ID4LOC33B0TWMPMFFTZEKIT13WXOUT5GQ04LNKJMMHMBGH3RZ3DOI">Net Antennae (Tolerance=0mil) (All)</a></td>
+<td class="column2">48</td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="#IDDT15FNVQ1P1MNSPGWE4Q5PPILMOZLEXICGEWTPOWWRJTOSL2AKP">Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC'))</a></td>
+<td class="column2">18</td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="#IDGHFJMFRXKHWNC0OZP4Z2CJ1C4BOJ5A51ONI4NQFPTE5MNPR2DBYL">Height Constraint (Min=0mil) (Max=1000mil) (Prefered=500mil) (All)</a></td>
+<td class="column2">0</td>
+</tr>
+<tr>
+<td style="font-weight : bold; text-align : right" class="column1">Total</td>
+<td style="font-weight : bold" class="column2">206</td>
+</tr>
+</table><br><a name="IDQCOHAQE23PK3K5VWB35ZBS133CFKS4CAVP0P4EKBYZFAKNF0AZFI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Clearance Constraint (Gap=10mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-1(1429.016mil,4685.512mil) on Top Layer And Pad U2-28(1448.701mil,4685.512mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-10(1507.756mil,4565.433mil) on Top Layer And Pad U2-11(1527.441mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-10(1507.756mil,4565.433mil) on Top Layer And Pad U2-9(1488.071mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-11(1527.441mil,4565.433mil) on Top Layer And Pad U2-12(1547.126mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-13(1566.811mil,4565.433mil) on Top Layer And Pad U2-14(1586.496mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-14(1586.496mil,4565.433mil) on Top Layer And Pad U2-15(1606.181mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-16(1605.197mil,4595.945mil) on Top Layer And Pad U2-17(1605.197mil,4615.63mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-17(1605.197mil,4615.63mil) on Top Layer And Pad U2-18(1605.197mil,4635.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1591.729mil|Location2.X=1598.979mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-18(1605.197mil,4635.315mil) on Top Layer And Pad U2-19(1605.197mil,4655mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-2(1430mil,4655mil) on Top Layer And Pad U2-3(1430mil,4635.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-20(1606.181mil,4685.512mil) on Top Layer And Pad U2-21(1586.496mil,4685.512mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-24(1527.441mil,4685.512mil) on Top Layer And Pad U2-25(1507.756mil,4685.512mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-25(1507.756mil,4685.512mil) on Top Layer And Pad U2-26(1488.071mil,4685.512mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4668.107mil|Location2.Y=4675.357mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-27(1468.386mil,4685.512mil) on Top Layer And Pad U2-28(1448.701mil,4685.512mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-3(1430mil,4635.315mil) on Top Layer And Pad U2-4(1430mil,4615.63mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.533mil|Location2.X=1423.783mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-4(1430mil,4615.63mil) on Top Layer And Pad U2-5(1430mil,4595.945mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-6(1429.016mil,4565.433mil) on Top Layer And Pad U2-7(1448.701mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4548.029mil|Location2.Y=4555.279mil|Absolute=True">Clearance Constraint: (5.906mil &lt; 6mil) Between Pad U2-8(1468.386mil,4565.433mil) on Top Layer And Pad U2-9(1488.071mil,4565.433mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDRDRUE0M1BIPGIJ3IHNG2G2PHNDN1BIQYMX2CZBEUYGNYY4M1XQD"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Un-Routed Net Constraint ( (All) )</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5448.473mil|Location2.Y=5576.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5448.473mil|Location2.Y=5576.725mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C1-1(286.417mil,5480mil) on Top Layer And Pad C2-1(286.417mil,5545.197mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=1392.5mil|Location1.Y=4737.5mil|Location2.Y=5511.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=1392.5mil|Location1.Y=4737.5mil|Location2.Y=5511.528mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C1-1(286.417mil,5480mil) on Top Layer And Via (1385mil,4745mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5448.473mil|Location2.Y=5576.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5448.473mil|Location2.Y=5576.725mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad C1-2(213.583mil,5480mil) on Top Layer And Pad C2-2(213.583mil,5545.197mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=1282mil|Location1.Y=4648mil|Location2.Y=5511.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=1282mil|Location1.Y=4648mil|Location2.Y=5511.528mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad C1-2(213.583mil,5480mil) on Top Layer And Pad ICSP-1(1250mil,4680mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5513.669mil|Location2.Y=5641.921mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5513.669mil|Location2.Y=5641.921mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C2-1(286.417mil,5545.197mil) on Top Layer And Pad C3-1(286.417mil,5610.394mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5513.669mil|Location2.Y=5641.921mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5513.669mil|Location2.Y=5641.921mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad C2-2(213.583mil,5545.197mil) on Top Layer And Pad C3-2(213.583mil,5610.394mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=244.126mil|Location1.Y=5513.669mil|Location2.Y=5576.725mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=244.126mil|Location1.Y=5513.669mil|Location2.Y=5576.725mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad U1-18(102.323mil,5531.26mil) on Top Layer And Pad C2-2(213.583mil,5545.197mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5578.866mil|Location2.Y=5707.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=255.874mil|Location2.X=316.961mil|Location1.Y=5578.866mil|Location2.Y=5707.118mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad C3-1(286.417mil,5610.394mil) on Top Layer And Pad C4-1(286.417mil,5675.591mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=316.961mil|Location1.Y=5578.866mil|Location2.Y=5641.921mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=316.961mil|Location1.Y=5578.866mil|Location2.Y=5641.921mil|Absolute=True">Un-Routed Net Constraint: Net GND Between Pad U1-21(102.323mil,5625.748mil) on Top Layer And Pad C3-1(286.417mil,5610.394mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5578.866mil|Location2.Y=5707.118mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=183.039mil|Location2.X=244.126mil|Location1.Y=5578.866mil|Location2.Y=5707.118mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad C3-2(213.583mil,5610.394mil) on Top Layer And Pad C4-2(213.583mil,5675.591mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=1282mil|Location1.Y=4848mil|Location2.Y=5513.575mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=1282mil|Location1.Y=4848mil|Location2.Y=5513.575mil|Absolute=True">Un-Routed Net Constraint: Net SCK Between Pad U1-17(102.323mil,5499.764mil) on Top Layer And Pad ICSP-5(1250mil,4880mil) on Multi-Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=240.189mil|Location1.Y=5674.929mil|Location2.Y=5775.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=240.189mil|Location1.Y=5674.929mil|Location2.Y=5775.543mil|Absolute=True">Un-Routed Net Constraint: Net NetR1_1 Between Pad U1-23(102.323mil,5688.74mil) on Top Layer And Pad R1-1(215.551mil,5745mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115.551mil|Location2.X=2202.323mil|Location1.Y=5645mil|Location2.Y=4683.74mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115.551mil|Location2.X=2202.323mil|Location1.Y=5645mil|Location2.Y=4683.74mil|Absolute=True">Un-Routed Net Constraint: Net NetR1_1 Between Pad R1-1(215.551mil,5745mil) on Top Layer And Track (2102.323mil,4583.74mil)(2104.929mil,4586.347mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=259.811mil|Location2.X=1517.5mil|Location1.Y=4897.5mil|Location2.Y=5775.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=259.811mil|Location2.X=1517.5mil|Location1.Y=4897.5mil|Location2.Y=5775.543mil|Absolute=True">Un-Routed Net Constraint: Net NetDS1_2 Between Pad R1-2(284.449mil,5745mil) on Top Layer And Via (1510mil,4905mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=240.189mil|Location1.Y=5706.425mil|Location2.Y=5845.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=240.189mil|Location1.Y=5706.425mil|Location2.Y=5845.543mil|Absolute=True">Un-Routed Net Constraint: Net NetR2_1 Between Pad U1-24(102.323mil,5720.236mil) on Top Layer And Pad R2-1(215.551mil,5815mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115.551mil|Location2.X=2202.323mil|Location1.Y=5715mil|Location2.Y=4715.236mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=115.551mil|Location2.X=2202.323mil|Location1.Y=5715mil|Location2.Y=4715.236mil|Absolute=True">Un-Routed Net Constraint: Net NetR2_1 Between Pad R2-1(215.551mil,5815mil) on Top Layer And Track (2102.323mil,4615.236mil)(2117.605mil,4615.236mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=259.811mil|Location2.X=1482.5mil|Location1.Y=4932.5mil|Location2.Y=5845.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=259.811mil|Location2.X=1482.5mil|Location1.Y=4932.5mil|Location2.Y=5845.543mil|Absolute=True">Un-Routed Net Constraint: Net NetDS2_1 Between Pad R2-2(284.449mil,5815mil) on Top Layer And Via (1475mil,4940mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9.457mil|Location2.X=70.543mil|Location1.Y=5736.937mil|Location2.Y=5940.189mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=9.457mil|Location2.X=70.543mil|Location1.Y=5736.937mil|Location2.Y=5940.189mil|Absolute=True">Un-Routed Net Constraint: Net NetR3_1 Between Pad R3-1(40mil,5915.551mil) on Top Layer And Pad U1-25(45.236mil,5777.323mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-60mil|Location2.X=1575mil|Location1.Y=5884.449mil|Location2.Y=5004.528mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-60mil|Location2.X=1575mil|Location1.Y=5884.449mil|Location2.Y=5004.528mil|Absolute=True">Un-Routed Net Constraint: Net NetDS3_1 Between Pad R3-2(40mil,5984.449mil) on Top Layer And Track (1475mil,4904.528mil)(1525.433mil,4954.961mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.071mil|Location2.X=1327.5mil|Location1.Y=4582.5mil|Location2.Y=5483.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.071mil|Location2.X=1327.5mil|Location1.Y=4582.5mil|Location2.Y=5483.063mil|Absolute=True">Un-Routed Net Constraint: Net MOSI Between Pad U1-15(13.74mil,5442.677mil) on Top Layer And Via (1320mil,4590mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=31.425mil|Location2.X=1227.5mil|Location1.Y=4712.5mil|Location2.Y=5483.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=31.425mil|Location2.X=1227.5mil|Location1.Y=4712.5mil|Location2.Y=5483.063mil|Absolute=True">Un-Routed Net Constraint: Net MISO Between Pad U1-16(45.236mil,5442.677mil) on Top Layer And Via (1220mil,4720mil) from Top Layer to Bottom Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=142.709mil|Location1.Y=5517.449mil|Location2.Y=5608.063mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=61.937mil|Location2.X=142.709mil|Location1.Y=5517.449mil|Location2.Y=5608.063mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Pad U1-18(102.323mil,5531.26mil) on Top Layer And Pad U1-20(102.323mil,5594.252mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-54.764mil|Location2.X=2140mil|Location1.Y=5677.323mil|Location2.Y=4910.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-54.764mil|Location2.X=2140mil|Location1.Y=5677.323mil|Location2.Y=4910.551mil|Absolute=True">Un-Routed Net Constraint: Net NetR3_1 Between Pad U1-25(45.236mil,5777.323mil) on Top Layer And Track (2040mil,4810.551mil)(2045.236mil,4805.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-86.26mil|Location2.X=2070mil|Location1.Y=5677.323mil|Location2.Y=4910.551mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-86.26mil|Location2.X=2070mil|Location1.Y=5677.323mil|Location2.Y=4910.551mil|Absolute=True">Un-Routed Net Constraint: Net NetR4_1 Between Pad U1-26(13.74mil,5777.323mil) on Top Layer And Track (1970mil,4810.551mil)(1975.906mil,4810.551mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2113.583mil|Location2.X=2328.583mil|Location1.Y=4470.591mil|Location2.Y=4670mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2113.583mil|Location2.X=2328.583mil|Location1.Y=4470.591mil|Location2.Y=4670mil|Absolute=True">Un-Routed Net Constraint: Net +5 Between Track (2213.583mil,4505.394mil)(2213.583mil,4570.591mil) on Top Layer And Track (2228.583mil,4570mil)(2228.583mil,4593.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID0U21HYTYCXDOKZTJBHUMXLXY5LIFAFX0D2HEXFFEQISMQC3MJ41O"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Minimum Solder Mask Sliver (Gap=6mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5508.974mil|Location2.Y=5516.224mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5508.974mil|Location2.Y=5516.224mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C1-1(286.417mil,5480mil) on Top Layer And Pad C2-1(286.417mil,5545.197mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4116.375mil|Location2.Y=4123.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4116.375mil|Location2.Y=4123.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.535mil &lt; 6mil) Between Pad C11-1(1810mil,4100mil) on Bottom Layer And Pad C12-1(1810mil,4140mil) on Bottom Layer [Bottom Solder] Mask Sliver [2.535mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.74mil &lt; 6mil) Between Pad C11-1(1810mil,4100mil) on Bottom Layer And Pad C16-2(1796.417mil,4045mil) on Bottom Layer [Bottom Solder] Mask Sliver [4.74mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4116.375mil|Location2.Y=4123.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4116.375mil|Location2.Y=4123.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.535mil &lt; 6mil) Between Pad C11-2(1762.756mil,4100mil) on Bottom Layer And Pad C12-2(1762.756mil,4140mil) on Bottom Layer [Bottom Solder] Mask Sliver [2.535mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.74mil &lt; 6mil) Between Pad C11-2(1762.756mil,4100mil) on Bottom Layer And Pad C16-1(1723.583mil,4045mil) on Bottom Layer [Bottom Solder] Mask Sliver [4.74mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1762.249mil|Location2.X=1769.499mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1762.249mil|Location2.X=1769.499mil|Location1.Y=4075.273mil|Location2.Y=4082.523mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.74mil &lt; 6mil) Between Pad C11-2(1762.756mil,4100mil) on Bottom Layer And Pad C16-2(1796.417mil,4045mil) on Bottom Layer [Bottom Solder] Mask Sliver [4.74mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5508.974mil|Location2.Y=5516.224mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5508.974mil|Location2.Y=5516.224mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C1-2(213.583mil,5480mil) on Top Layer And Pad C2-2(213.583mil,5545.197mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4156.375mil|Location2.Y=4163.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1788.627mil|Location2.X=1795.877mil|Location1.Y=4156.375mil|Location2.Y=4163.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.535mil &lt; 6mil) Between Pad C12-1(1810mil,4140mil) on Bottom Layer And Pad C13-1(1810mil,4180mil) on Bottom Layer [Bottom Solder] Mask Sliver [2.535mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4156.375mil|Location2.Y=4163.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1741.383mil|Location2.X=1748.633mil|Location1.Y=4156.375mil|Location2.Y=4163.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.535mil &lt; 6mil) Between Pad C12-2(1762.756mil,4140mil) on Bottom Layer And Pad C13-2(1762.756mil,4180mil) on Bottom Layer [Bottom Solder] Mask Sliver [2.535mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5574.17mil|Location2.Y=5581.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5574.17mil|Location2.Y=5581.42mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C2-1(286.417mil,5545.197mil) on Top Layer And Pad C3-1(286.417mil,5610.394mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5574.17mil|Location2.Y=5581.42mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5574.17mil|Location2.Y=5581.42mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C2-2(213.583mil,5545.197mil) on Top Layer And Pad C3-2(213.583mil,5610.394mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5639.367mil|Location2.Y=5646.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=252.249mil|Location2.X=259.499mil|Location1.Y=5639.367mil|Location2.Y=5646.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C3-1(286.417mil,5610.394mil) on Top Layer And Pad C4-1(286.417mil,5675.591mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5639.367mil|Location2.Y=5646.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=179.414mil|Location2.X=186.664mil|Location1.Y=5639.367mil|Location2.Y=5646.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (2.142mil &lt; 6mil) Between Pad C3-2(213.583mil,5610.394mil) on Top Layer And Pad C4-2(213.583mil,5675.591mil) on Top Layer [Top Solder] Mask Sliver [2.142mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.202mil|Location2.X=1442.452mil|Location1.Y=4746.375mil|Location2.Y=4753.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.202mil|Location2.X=1442.452mil|Location1.Y=4746.375mil|Location2.Y=4753.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (4.662mil &lt; 6mil) Between Pad C8-1(1455mil,4769.291mil) on Top Layer And Pad C8-2(1455mil,4730.709mil) on Top Layer [Top Solder] Mask Sliver [4.662mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1401.107mil|Location2.X=1408.357mil|Location1.Y=4741.375mil|Location2.Y=4748.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1401.107mil|Location2.X=1408.357mil|Location1.Y=4741.375mil|Location2.Y=4748.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad C9-1(1415mil,4757.992mil) on Top Layer And Pad C9-2(1415mil,4732.008mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.517mil|Location2.X=1582.767mil|Location1.Y=4266.375mil|Location2.Y=4273.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1575.517mil|Location2.X=1582.767mil|Location1.Y=4266.375mil|Location2.Y=4273.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad R10-1(1590mil,4255.236mil) on Bottom Layer And Pad R10-2(1590mil,4284.764mil) on Bottom Layer [Bottom Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-601.452mil|Location2.X=-594.202mil|Location1.Y=5256.375mil|Location2.Y=5263.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-601.452mil|Location2.X=-594.202mil|Location1.Y=5256.375mil|Location2.Y=5263.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad R5-1(-585mil,5276.732mil) on Top Layer And Pad R5-2(-585mil,5243.268mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5700.863mil|Location2.Y=5708.113mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5700.863mil|Location2.Y=5708.113mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-1(-232.323mil,5720.236mil) on Top Layer And Pad U1-2(-232.323mil,5688.74mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-131.617mil|Location2.X=-124.367mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-131.617mil|Location2.X=-124.367mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-10(-143.74mil,5442.677mil) on Top Layer And Pad U1-11(-112.244mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-163.113mil|Location2.X=-155.863mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-163.113mil|Location2.X=-155.863mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-10(-143.74mil,5442.677mil) on Top Layer And Pad U1-9(-175.236mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-100.121mil|Location2.X=-92.871mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-100.121mil|Location2.X=-92.871mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-11(-112.244mil,5442.677mil) on Top Layer And Pad U1-12(-80.748mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-68.625mil|Location2.X=-61.375mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-68.625mil|Location2.X=-61.375mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-12(-80.748mil,5442.677mil) on Top Layer And Pad U1-13(-49.252mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-37.129mil|Location2.X=-29.879mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-37.129mil|Location2.X=-29.879mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-13(-49.252mil,5442.677mil) on Top Layer And Pad U1-14(-17.756mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-5.633mil|Location2.X=1.617mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-5.633mil|Location2.X=1.617mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-14(-17.756mil,5442.677mil) on Top Layer And Pad U1-15(13.74mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25.863mil|Location2.X=33.113mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25.863mil|Location2.X=33.113mil|Location1.Y=5412.477mil|Location2.Y=5419.727mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-15(13.74mil,5442.677mil) on Top Layer And Pad U1-16(45.236mil,5442.677mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5511.887mil|Location2.Y=5519.137mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5511.887mil|Location2.Y=5519.137mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-17(102.323mil,5499.764mil) on Top Layer And Pad U1-18(102.323mil,5531.26mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5543.383mil|Location2.Y=5550.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5543.383mil|Location2.Y=5550.633mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-18(102.323mil,5531.26mil) on Top Layer And Pad U1-19(102.323mil,5562.756mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5574.879mil|Location2.Y=5582.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5574.879mil|Location2.Y=5582.129mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-19(102.323mil,5562.756mil) on Top Layer And Pad U1-20(102.323mil,5594.252mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5669.367mil|Location2.Y=5676.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5669.367mil|Location2.Y=5676.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-2(-232.323mil,5688.74mil) on Top Layer And Pad U1-3(-232.323mil,5657.244mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5606.375mil|Location2.Y=5613.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5606.375mil|Location2.Y=5613.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-20(102.323mil,5594.252mil) on Top Layer And Pad U1-21(102.323mil,5625.748mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5637.871mil|Location2.Y=5645.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5637.871mil|Location2.Y=5645.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-21(102.323mil,5625.748mil) on Top Layer And Pad U1-22(102.323mil,5657.244mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5669.367mil|Location2.Y=5676.617mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5669.367mil|Location2.Y=5676.617mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-22(102.323mil,5657.244mil) on Top Layer And Pad U1-23(102.323mil,5688.74mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5700.863mil|Location2.Y=5708.113mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=72.123mil|Location2.X=79.373mil|Location1.Y=5700.863mil|Location2.Y=5708.113mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-23(102.323mil,5688.74mil) on Top Layer And Pad U1-24(102.323mil,5720.236mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25.863mil|Location2.X=33.113mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=25.863mil|Location2.X=33.113mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-25(45.236mil,5777.323mil) on Top Layer And Pad U1-26(13.74mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-5.633mil|Location2.X=1.617mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-5.633mil|Location2.X=1.617mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-26(13.74mil,5777.323mil) on Top Layer And Pad U1-27(-17.756mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-37.129mil|Location2.X=-29.879mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-37.129mil|Location2.X=-29.879mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-27(-17.756mil,5777.323mil) on Top Layer And Pad U1-28(-49.252mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-68.625mil|Location2.X=-61.375mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-68.625mil|Location2.X=-61.375mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-28(-49.252mil,5777.323mil) on Top Layer And Pad U1-29(-80.748mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-100.121mil|Location2.X=-92.871mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-100.121mil|Location2.X=-92.871mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-29(-80.748mil,5777.323mil) on Top Layer And Pad U1-30(-112.244mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5637.871mil|Location2.Y=5645.121mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5637.871mil|Location2.Y=5645.121mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-3(-232.323mil,5657.244mil) on Top Layer And Pad U1-4(-232.323mil,5625.748mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-131.617mil|Location2.X=-124.367mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-131.617mil|Location2.X=-124.367mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-30(-112.244mil,5777.323mil) on Top Layer And Pad U1-31(-143.74mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-163.113mil|Location2.X=-155.863mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-163.113mil|Location2.X=-155.863mil|Location1.Y=5747.123mil|Location2.Y=5754.373mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-31(-143.74mil,5777.323mil) on Top Layer And Pad U1-32(-175.236mil,5777.323mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5606.375mil|Location2.Y=5613.625mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5606.375mil|Location2.Y=5613.625mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-4(-232.323mil,5625.748mil) on Top Layer And Pad U1-5(-232.323mil,5594.252mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5574.879mil|Location2.Y=5582.129mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5574.879mil|Location2.Y=5582.129mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-5(-232.323mil,5594.252mil) on Top Layer And Pad U1-6(-232.323mil,5562.756mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5543.383mil|Location2.Y=5550.633mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5543.383mil|Location2.Y=5550.633mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-6(-232.323mil,5562.756mil) on Top Layer And Pad U1-7(-232.323mil,5531.26mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5511.887mil|Location2.Y=5519.137mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-262.523mil|Location2.X=-255.273mil|Location1.Y=5511.887mil|Location2.Y=5519.137mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (3.874mil &lt; 6mil) Between Pad U1-7(-232.323mil,5531.26mil) on Top Layer And Pad U1-8(-232.323mil,5499.764mil) on Top Layer [Top Solder] Mask Sliver [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.501mil|Location2.X=1423.751mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.501mil|Location2.X=1423.751mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-1(1429.016mil,4685.512mil) on Top Layer And Pad U2-2(1430mil,4655mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-1(1429.016mil,4685.512mil) on Top Layer And Pad U2-28(1448.701mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-10(1507.756mil,4565.433mil) on Top Layer And Pad U2-11(1527.441mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-10(1507.756mil,4565.433mil) on Top Layer And Pad U2-9(1488.071mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-11(1527.441mil,4565.433mil) on Top Layer And Pad U2-12(1547.126mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1553.343mil|Location2.X=1560.593mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1553.343mil|Location2.X=1560.593mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-12(1547.126mil,4565.433mil) on Top Layer And Pad U2-13(1566.811mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-13(1566.811mil,4565.433mil) on Top Layer And Pad U2-14(1586.496mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-14(1586.496mil,4565.433mil) on Top Layer And Pad U2-15(1606.181mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-14(1586.496mil,4565.433mil) on Top Layer And Pad U2-16(1605.197mil,4595.945mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.666mil|Location2.X=1600.916mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.666mil|Location2.X=1600.916mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-15(1606.181mil,4565.433mil) on Top Layer And Pad U2-16(1605.197mil,4595.945mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-16(1605.197mil,4595.945mil) on Top Layer And Pad U2-17(1605.197mil,4615.63mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-17(1605.197mil,4615.63mil) on Top Layer And Pad U2-18(1605.197mil,4635.315mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-18(1605.197mil,4635.315mil) on Top Layer And Pad U2-19(1605.197mil,4655mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.666mil|Location2.X=1600.916mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1593.666mil|Location2.X=1600.916mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-19(1605.197mil,4655mil) on Top Layer And Pad U2-20(1606.181mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1589.729mil|Location2.X=1596.979mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-19(1605.197mil,4655mil) on Top Layer And Pad U2-21(1586.496mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.186mil|Location2.X=1443.436mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.186mil|Location2.X=1443.436mil|Location1.Y=4663.186mil|Location2.Y=4670.436mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-2(1430mil,4655mil) on Top Layer And Pad U2-28(1448.701mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4641.532mil|Location2.Y=4648.782mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-2(1430mil,4655mil) on Top Layer And Pad U2-3(1430mil,4635.315mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1592.714mil|Location2.X=1599.964mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-20(1606.181mil,4685.512mil) on Top Layer And Pad U2-21(1586.496mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1573.028mil|Location2.X=1580.278mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-21(1586.496mil,4685.512mil) on Top Layer And Pad U2-22(1566.811mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1553.343mil|Location2.X=1560.593mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1553.343mil|Location2.X=1560.593mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-22(1566.811mil,4685.512mil) on Top Layer And Pad U2-23(1547.126mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1533.658mil|Location2.X=1540.908mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-23(1547.126mil,4685.512mil) on Top Layer And Pad U2-24(1527.441mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1513.973mil|Location2.X=1521.223mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-24(1527.441mil,4685.512mil) on Top Layer And Pad U2-25(1507.756mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1494.288mil|Location2.X=1501.538mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-25(1507.756mil,4685.512mil) on Top Layer And Pad U2-26(1488.071mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-26(1488.071mil,4685.512mil) on Top Layer And Pad U2-27(1468.386mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4666.107mil|Location2.Y=4673.357mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-27(1468.386mil,4685.512mil) on Top Layer And Pad U2-28(1448.701mil,4685.512mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4621.847mil|Location2.Y=4629.097mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-3(1430mil,4635.315mil) on Top Layer And Pad U2-4(1430mil,4615.63mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1414.533mil|Location2.X=1421.783mil|Location1.Y=4602.162mil|Location2.Y=4609.412mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-4(1430mil,4615.63mil) on Top Layer And Pad U2-5(1430mil,4595.945mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.501mil|Location2.X=1423.751mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1416.501mil|Location2.X=1423.751mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-5(1430mil,4595.945mil) on Top Layer And Pad U2-6(1429.016mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.186mil|Location2.X=1443.436mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1436.186mil|Location2.X=1443.436mil|Location1.Y=4580.509mil|Location2.Y=4587.759mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U2-5(1430mil,4595.945mil) on Top Layer And Pad U2-7(1448.701mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1435.233mil|Location2.X=1442.483mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-6(1429.016mil,4565.433mil) on Top Layer And Pad U2-7(1448.701mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1454.918mil|Location2.X=1462.168mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-7(1448.701mil,4565.433mil) on Top Layer And Pad U2-8(1468.386mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1474.603mil|Location2.X=1481.853mil|Location1.Y=4546.029mil|Location2.Y=4553.279mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (1.906mil &lt; 6mil) Between Pad U2-8(1468.386mil,4565.433mil) on Top Layer And Pad U2-9(1488.071mil,4565.433mil) on Top Layer [Top Solder] Mask Sliver [1.906mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2153.785mil|Location2.X=2161.035mil|Location1.Y=4170.076mil|Location2.Y=4177.326mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2153.785mil|Location2.X=2161.035mil|Location1.Y=4170.076mil|Location2.Y=4177.326mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U3-1(2185mil,4192.402mil) on Top Layer And Pad U3-2(2185mil,4155mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2153.785mil|Location2.X=2161.035mil|Location1.Y=4132.674mil|Location2.Y=4139.924mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2153.785mil|Location2.X=2161.035mil|Location1.Y=4132.674mil|Location2.Y=4139.924mil|Absolute=True">Minimum Solder Mask Sliver Constraint: (5.843mil &lt; 6mil) Between Pad U3-2(2185mil,4155mil) on Top Layer And Pad U3-3(2185mil,4117.599mil) on Top Layer [Top Solder] Mask Sliver [5.843mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDFYBUX1WJM5MRE2CQQWY0SQH1QGVGIO4FOBDZALJO25LTA34JNJRJ"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk To Solder Mask (Clearance=6mil) (IsPad),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.446mil|Location2.X=2146.696mil|Location1.Y=4301.021mil|Location2.Y=4308.271mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2139.446mil|Location2.X=2146.696mil|Location1.Y=4301.021mil|Location2.Y=4308.271mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.173mil &lt; 6mil) Between Arc (2155mil,4304.646mil) on Bottom Overlay And Pad C18-1(2126.22mil,4400mil) on Bottom Layer [Bottom Overlay] to [Bottom Solder] clearance [4.173mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.47mil|Location2.X=2138.47mil|Location1.Y=4342.2mil|Location2.Y=4347.2mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2133.47mil|Location2.X=2138.47mil|Location1.Y=4342.2mil|Location2.Y=4347.2mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad C18-1(2126.22mil,4400mil) on Bottom Layer And Text "L1" (2191mil,4344mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1835.506mil|Location2.X=1840.506mil|Location1.Y=4333.492mil|Location2.Y=4338.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1835.506mil|Location2.X=1840.506mil|Location1.Y=4333.492mil|Location2.Y=4338.492mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad C19-2(1846.22mil,4400mil) on Bottom Layer And Text "C15" (1858mil,4311mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1355.119mil|Location2.X=1362.369mil|Location1.Y=4706.958mil|Location2.Y=4714.208mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1355.119mil|Location2.X=1362.369mil|Location1.Y=4706.958mil|Location2.Y=4714.208mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.875mil &lt; 6mil) Between Pad ICSP-2(1350mil,4680mil) on Multi-Layer And Text "MOSI" (1315mil,4715mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.874mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1334.057mil|Location2.X=1341.307mil|Location1.Y=4806.31mil|Location2.Y=4813.56mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1334.057mil|Location2.X=1341.307mil|Location1.Y=4806.31mil|Location2.Y=4813.56mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.13mil &lt; 6mil) Between Pad ICSP-4(1350mil,4780mil) on Multi-Layer And Text "MISO" (1315mil,4815mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.13mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1345.589mil|Location2.X=1353.79mil|Location1.Y=4277.227mil|Location2.Y=4285.075mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1345.589mil|Location2.X=1353.79mil|Location1.Y=4277.227mil|Location2.Y=4285.075mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (3.62mil &lt; 6mil) Between Pad J2-2(1350mil,4250mil) on Multi-Layer And Text "3V3" (1325mil,4285mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [3.62mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.09mil|Location2.X=1349.169mil|Location1.Y=4376.825mil|Location2.Y=4384.785mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1341.09mil|Location2.X=1349.169mil|Location1.Y=4376.825mil|Location2.Y=4384.785mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.542mil &lt; 6mil) Between Pad J2-4(1350mil,4350mil) on Multi-Layer And Text "CSN" (1325mil,4385mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.541mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1342.787mil|Location2.X=1350.849mil|Location1.Y=4477.017mil|Location2.Y=4484.996mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1342.787mil|Location2.X=1350.849mil|Location1.Y=4477.017mil|Location2.Y=4484.996mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.192mil &lt; 6mil) Between Pad J2-6(1350mil,4450mil) on Multi-Layer And Text "MOSI" (1320mil,4485mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.192mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1216.51mil|Location2.X=1223.76mil|Location1.Y=4553.192mil|Location2.Y=4560.442mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1216.51mil|Location2.X=1223.76mil|Location1.Y=4553.192mil|Location2.Y=4560.442mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (5.32mil &lt; 6mil) Between Pad J2-7(1250mil,4550mil) on Multi-Layer And Text "MISO" (1145mil,4540mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [5.321mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.5mil|Location2.X=2198.5mil|Location1.Y=4348.327mil|Location2.Y=4353.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.5mil|Location2.X=2198.5mil|Location1.Y=4348.327mil|Location2.Y=4353.327mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad Q1-1(2212.638mil,4340mil) on Bottom Layer And Text "L1" (2191mil,4344mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.5mil|Location2.X=2198.5mil|Location1.Y=4398.327mil|Location2.Y=4403.327mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2193.5mil|Location2.X=2198.5mil|Location1.Y=4398.327mil|Location2.Y=4403.327mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad Q1-2(2212.638mil,4390mil) on Bottom Layer And Text "L1" (2191mil,4344mil) on Bottom Overlay [Bottom Overlay] to [Bottom Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11.375mil|Location2.X=18.625mil|Location1.Y=6005.918mil|Location2.Y=6013.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=11.375mil|Location2.X=18.625mil|Location1.Y=6005.918mil|Location2.Y=6013.168mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.913mil &lt; 6mil) Between Pad R3-2(40mil,5984.449mil) on Top Layer And Text "R3" (15mil,6015mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.913mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-58.625mil|Location2.X=-51.375mil|Location1.Y=6005.918mil|Location2.Y=6013.168mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-58.625mil|Location2.X=-51.375mil|Location1.Y=6005.918mil|Location2.Y=6013.168mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (4.913mil &lt; 6mil) Between Pad R4-2(-30mil,5984.449mil) on Top Layer And Text "R4" (-55mil,6015mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [4.913mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.494mil|Location2.X=1437.494mil|Location1.Y=4552.492mil|Location2.Y=4557.492mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1432.494mil|Location2.X=1437.494mil|Location1.Y=4552.492mil|Location2.Y=4557.492mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad U2-6(1429.016mil,4565.433mil) on Top Layer And Text "C7" (1415mil,4530mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1448.922mil|Location2.X=1453.922mil|Location1.Y=4557.49mil|Location2.Y=4562.49mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1448.922mil|Location2.X=1453.922mil|Location1.Y=4557.49mil|Location2.Y=4562.49mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (Collision &lt; 6mil) Between Pad U2-7(1448.701mil,4565.433mil) on Top Layer And Text "C7" (1415mil,4530mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [0mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1465.15mil|Location2.X=1472.4mil|Location1.Y=4558.261mil|Location2.Y=4565.511mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1465.15mil|Location2.X=1472.4mil|Location1.Y=4558.261mil|Location2.Y=4565.511mil|Absolute=True">Silk To Solder Mask Clearance Constraint: (2.477mil &lt; 6mil) Between Pad U2-8(1468.386mil,4565.433mil) on Top Layer And Text "C7" (1415mil,4530mil) on Top Overlay [Top Overlay] to [Top Solder] clearance [2.477mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDYR44J03GZZ21NZVQBLWKGSPIMJCHHHRJD1NUUGKAUZNWT0FJ4ICH"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Silk to Silk (Clearance=6mil) (All),(All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1716.38mil|Location2.X=1723.63mil|Location1.Y=4121.37mil|Location2.Y=4128.62mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1716.38mil|Location2.X=1723.63mil|Location1.Y=4121.37mil|Location2.Y=4128.62mil|Absolute=True">Silk To Silk Clearance Constraint: (4.01mil &lt; 6mil) Between Text "C11" (1730mil,4090mil) on Bottom Overlay And Text "C12" (1735mil,4130mil) on Bottom Overlay Silk Text to Silk Clearance [4.01mil]</acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1716.38mil|Location2.X=1723.63mil|Location1.Y=4161.37mil|Location2.Y=4168.62mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1716.38mil|Location2.X=1723.63mil|Location1.Y=4161.37mil|Location2.Y=4168.62mil|Absolute=True">Silk To Silk Clearance Constraint: (4.01mil &lt; 6mil) Between Text "C12" (1735mil,4130mil) on Bottom Overlay And Text "C13" (1735mil,4170mil) on Bottom Overlay Silk Text to Silk Clearance [4.01mil]</acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="ID4LOC33B0TWMPMFFTZEKIT13WXOUT5GQ04LNKJMMHMBGH3RZ3DOI"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Net Antennae (Tolerance=0mil) (All)</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.083mil|Location2.X=1428.671mil|Location1.Y=3754.925mil|Location2.Y=3789.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1405.083mil|Location2.X=1428.671mil|Location1.Y=3754.925mil|Location2.Y=3789.125mil|Absolute=True">Net Antennae: Track (1413.583mil,3763.425mil)(1595mil,3944.842mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4064.413mil|Location2.Y=4098.613mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4064.413mil|Location2.Y=4098.613mil|Absolute=True">Net Antennae: Track (1415mil,4072.913mil)(1415mil,4138.268mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4163.232mil|Location2.Y=4197.432mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4163.232mil|Location2.Y=4197.432mil|Absolute=True">Net Antennae: Track (1415mil,4171.732mil)(1450.768mil,4207.5mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4915.713mil|Location2.Y=4949.912mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1406.5mil|Location2.X=1430.089mil|Location1.Y=4915.713mil|Location2.Y=4949.912mil|Absolute=True">Net Antennae: Track (1415mil,4924.213mil)(1430.787mil,4940mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1466.5mil|Location2.X=1490.089mil|Location1.Y=4836.972mil|Location2.Y=4871.172mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1466.5mil|Location2.X=1490.089mil|Location1.Y=4836.972mil|Location2.Y=4871.172mil|Absolute=True">Net Antennae: Track (1424.685mil,4845.472mil)(1475mil,4845.472mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1466.5mil|Location2.X=1490.089mil|Location1.Y=4896.028mil|Location2.Y=4930.227mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1466.5mil|Location2.X=1490.089mil|Location1.Y=4896.028mil|Location2.Y=4930.227mil|Absolute=True">Net Antennae: Track (1475mil,4904.528mil)(1525.433mil,4954.961mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1546.5mil|Location2.X=1570.089mil|Location1.Y=4906.5mil|Location2.Y=4940.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1546.5mil|Location2.X=1570.089mil|Location1.Y=4906.5mil|Location2.Y=4940.699mil|Absolute=True">Net Antennae: Track (1545mil,4905mil)(1555mil,4915mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1546.5mil|Location2.X=1570.089mil|Location1.Y=4823.823mil|Location2.Y=4858.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1546.5mil|Location2.X=1570.089mil|Location1.Y=4823.823mil|Location2.Y=4858.022mil|Absolute=True">Net Antennae: Track (1555mil,4832.323mil)(1618.661mil,4832.323mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.925mil|Location2.X=1588.514mil|Location1.Y=4511.5mil|Location2.Y=4545.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.925mil|Location2.X=1588.514mil|Location1.Y=4511.5mil|Location2.Y=4545.699mil|Absolute=True">Net Antennae: Track (1558.425mil,4505mil)(1573.425mil,4520mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.925mil|Location2.X=1588.514mil|Location1.Y=4399.02mil|Location2.Y=4433.219mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1564.925mil|Location2.X=1588.514mil|Location1.Y=4399.02mil|Location2.Y=4433.219mil|Absolute=True">Net Antennae: Track (1573.425mil,4360mil)(1573.425mil,4407.52mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1611.5mil|Location2.X=1635.089mil|Location1.Y=4907.839mil|Location2.Y=4942.038mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1611.5mil|Location2.X=1635.089mil|Location1.Y=4907.839mil|Location2.Y=4942.038mil|Absolute=True">Net Antennae: Track (1620mil,4916.339mil)(1631.654mil,4927.992mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.075mil|Location2.X=1641.663mil|Location1.Y=4351.5mil|Location2.Y=4385.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1618.075mil|Location2.X=1641.663mil|Location1.Y=4351.5mil|Location2.Y=4385.699mil|Absolute=True">Net Antennae: Track (1626.575mil,4360mil)(1626.575mil,4407.52mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1744.047mil|Location2.X=1767.635mil|Location1.Y=4480.752mil|Location2.Y=4514.952mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1744.047mil|Location2.X=1767.635mil|Location1.Y=4480.752mil|Location2.Y=4514.952mil|Absolute=True">Net Antennae: Track (1685.605mil,4489.252mil)(1752.547mil,4489.252mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1757.937mil|Location2.X=1781.526mil|Location1.Y=4419mil|Location2.Y=4453.199mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1757.937mil|Location2.X=1781.526mil|Location1.Y=4419mil|Location2.Y=4453.199mil|Absolute=True">Net Antennae: Track (1689.32mil,4427.5mil)(1766.437mil,4427.5mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4386.264mil|Location2.Y=4420.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4386.264mil|Location2.Y=4420.463mil|Absolute=True">Net Antennae: Track (1697.944mil,4394.764mil)(1767.677mil,4394.764mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4543.744mil|Location2.Y=4577.944mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4543.744mil|Location2.Y=4577.944mil|Absolute=True">Net Antennae: Track (1737.416mil,4552.244mil)(1767.677mil,4552.244mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1761.177mil|Location2.X=1780.412mil|Location1.Y=4577.24mil|Location2.Y=4604.259mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1761.177mil|Location2.X=1780.412mil|Location1.Y=4577.24mil|Location2.Y=4604.259mil|Absolute=True">Net Antennae: Track (1738.217mil,4583.74mil)(1767.677mil,4583.74mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4449.256mil|Location2.Y=4483.456mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4449.256mil|Location2.Y=4483.456mil|Absolute=True">Net Antennae: Track (1767.677mil,4457.756mil)(1810mil,4457.756mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4512.248mil|Location2.Y=4546.448mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4512.248mil|Location2.Y=4546.448mil|Absolute=True">Net Antennae: Track (1767.677mil,4520.748mil)(1797.938mil,4520.748mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4606.736mil|Location2.Y=4640.936mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1759.177mil|Location2.X=1782.766mil|Location1.Y=4606.736mil|Location2.Y=4640.936mil|Absolute=True">Net Antennae: Track (1767.677mil,4615.236mil)(1811.583mil,4615.236mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1816.264mil|Location2.X=1839.852mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1816.264mil|Location2.X=1839.852mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True">Net Antennae: Track (1824.764mil,4337.677mil)(1824.764mil,4352.96mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1816.264mil|Location2.X=1839.852mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1816.264mil|Location2.X=1839.852mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True">Net Antennae: Track (1824.764mil,4672.323mil)(1824.764mil,4687.605mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1847.76mil|Location2.X=1871.349mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1847.76mil|Location2.X=1871.349mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True">Net Antennae: Track (1856.26mil,4337.677mil)(1856.26mil,4367.938mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.256mil|Location2.X=1902.844mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1879.256mil|Location2.X=1902.844mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True">Net Antennae: Track (1887.756mil,4307.416mil)(1887.756mil,4337.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1908.146mil|Location2.X=1931.734mil|Location1.Y=4326.571mil|Location2.Y=4360.77mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1908.146mil|Location2.X=1931.734mil|Location1.Y=4326.571mil|Location2.Y=4360.77mil|Absolute=True">Net Antennae: Track (1916.646mil,4302.076mil)(1916.646mil,4335.071mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1908.146mil|Location2.X=1931.734mil|Location1.Y=4666.429mil|Location2.Y=4700.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1908.146mil|Location2.X=1931.734mil|Location1.Y=4666.429mil|Location2.Y=4700.629mil|Absolute=True">Net Antennae: Track (1916.646mil,4674.929mil)(1916.646mil,4718.354mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1955.594mil|Location2.X=1979.183mil|Location1.Y=4870.949mil|Location2.Y=4905.148mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1955.594mil|Location2.X=1979.183mil|Location1.Y=4870.949mil|Location2.Y=4905.148mil|Absolute=True">Net Antennae: Track (1946.457mil,4897.087mil)(1964.094mil,4879.449mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1939.642mil|Location2.X=1963.23mil|Location1.Y=4666.429mil|Location2.Y=4700.629mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1939.642mil|Location2.X=1963.23mil|Location1.Y=4666.429mil|Location2.Y=4700.629mil|Absolute=True">Net Antennae: Track (1948.142mil,4674.929mil)(1948.142mil,4725.278mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1941.5mil|Location2.X=1965.089mil|Location1.Y=4329.925mil|Location2.Y=4364.125mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1941.5mil|Location2.X=1965.089mil|Location1.Y=4329.925mil|Location2.Y=4364.125mil|Absolute=True">Net Antennae: Track (1950mil,4338.425mil)(1950mil,4400mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.406mil|Location2.X=1990.994mil|Location1.Y=4802.051mil|Location2.Y=4836.251mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=1967.406mil|Location2.X=1990.994mil|Location1.Y=4802.051mil|Location2.Y=4836.251mil|Absolute=True">Net Antennae: Track (1975.906mil,4810.551mil)(1993.543mil,4792.913mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2005.24mil|Location2.X=2028.829mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2005.24mil|Location2.X=2028.829mil|Location1.Y=4329.177mil|Location2.Y=4363.377mil|Absolute=True">Net Antennae: Track (2013.74mil,4307.416mil)(2013.74mil,4337.677mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2005.24mil|Location2.X=2028.829mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2005.24mil|Location2.X=2028.829mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True">Net Antennae: Track (2013.74mil,4672.323mil)(2013.74mil,4737.65mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2025.594mil|Location2.X=2049.183mil|Location1.Y=4870.949mil|Location2.Y=4905.148mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2025.594mil|Location2.X=2049.183mil|Location1.Y=4870.949mil|Location2.Y=4905.148mil|Absolute=True">Net Antennae: Track (2016.457mil,4897.087mil)(2034.094mil,4879.449mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.736mil|Location2.X=2060.325mil|Location1.Y=4796.815mil|Location2.Y=4831.014mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.736mil|Location2.X=2060.325mil|Location1.Y=4796.815mil|Location2.Y=4831.014mil|Absolute=True">Net Antennae: Track (2045.236mil,4672.323mil)(2045.236mil,4805.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.736mil|Location2.X=2060.325mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2036.736mil|Location2.X=2060.325mil|Location1.Y=4663.823mil|Location2.Y=4698.022mil|Absolute=True">Net Antennae: Track (2045.236mil,4672.323mil)(2045.236mil,4805.315mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2041.559mil|Location2.X=2065.148mil|Location1.Y=4334mil|Location2.Y=4368.199mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2041.559mil|Location2.X=2065.148mil|Location1.Y=4334mil|Location2.Y=4368.199mil|Absolute=True">Net Antennae: Track (2050.059mil,4342.5mil)(2142.396mil,4342.5mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.823mil|Location2.X=2117.412mil|Location1.Y=4386.264mil|Location2.Y=4420.463mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.823mil|Location2.X=2117.412mil|Location1.Y=4386.264mil|Location2.Y=4420.463mil|Absolute=True">Net Antennae: Track (2090mil,4382.441mil)(2102.323mil,4394.764mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.823mil|Location2.X=2117.412mil|Location1.Y=4606.736mil|Location2.Y=4640.936mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2093.823mil|Location2.X=2117.412mil|Location1.Y=4606.736mil|Location2.Y=4640.936mil|Absolute=True">Net Antennae: Track (2102.323mil,4615.236mil)(2117.605mil,4615.236mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.429mil|Location2.X=2120.018mil|Location1.Y=4420.366mil|Location2.Y=4454.566mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.429mil|Location2.X=2120.018mil|Location1.Y=4420.366mil|Location2.Y=4454.566mil|Absolute=True">Net Antennae: Track (2104.929mil,4428.866mil)(2137.925mil,4428.866mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.429mil|Location2.X=2120.018mil|Location1.Y=4577.847mil|Location2.Y=4612.046mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2096.429mil|Location2.X=2120.018mil|Location1.Y=4577.847mil|Location2.Y=4612.046mil|Absolute=True">Net Antennae: Track (2104.929mil,4586.347mil)(2150.055mil,4586.347mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.051mil|Location2.X=2230.64mil|Location1.Y=4701.5mil|Location2.Y=4735.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.051mil|Location2.X=2230.64mil|Location1.Y=4701.5mil|Location2.Y=4735.699mil|Absolute=True">Net Antennae: Track (2165mil,4710mil)(2215.551mil,4710mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.051mil|Location2.X=2230.64mil|Location1.Y=4625.595mil|Location2.Y=4659.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2207.051mil|Location2.X=2230.64mil|Location1.Y=4625.595mil|Location2.Y=4659.794mil|Absolute=True">Net Antennae: Track (2197.913mil,4616.457mil)(2215.551mil,4634.095mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2205.083mil|Location2.X=2228.671mil|Location1.Y=4562.091mil|Location2.Y=4596.29mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2205.083mil|Location2.X=2228.671mil|Location1.Y=4562.091mil|Location2.Y=4596.29mil|Absolute=True">Net Antennae: Track (2213.583mil,4505.394mil)(2213.583mil,4570.591mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2220.083mil|Location2.X=2243.671mil|Location1.Y=4585.083mil|Location2.Y=4619.282mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2220.083mil|Location2.X=2243.671mil|Location1.Y=4585.083mil|Location2.Y=4619.282mil|Absolute=True">Net Antennae: Track (2228.583mil,4570mil)(2228.583mil,4593.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2220.083mil|Location2.X=2243.671mil|Location1.Y=4561.5mil|Location2.Y=4595.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2220.083mil|Location2.X=2243.671mil|Location1.Y=4561.5mil|Location2.Y=4595.699mil|Absolute=True">Net Antennae: Track (2228.583mil,4570mil)(2228.583mil,4593.583mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2275.949mil|Location2.X=2299.537mil|Location1.Y=4625.595mil|Location2.Y=4659.794mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2275.949mil|Location2.X=2299.537mil|Location1.Y=4625.595mil|Location2.Y=4659.794mil|Absolute=True">Net Antennae: Track (2284.449mil,4634.095mil)(2302.087mil,4616.457mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2275.949mil|Location2.X=2299.537mil|Location1.Y=4701.5mil|Location2.Y=4735.699mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2275.949mil|Location2.X=2299.537mil|Location1.Y=4701.5mil|Location2.Y=4735.699mil|Absolute=True">Net Antennae: Track (2284.449mil,4710mil)(2294.449mil,4720mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2277.917mil|Location2.X=2301.506mil|Location1.Y=4562.091mil|Location2.Y=4596.29mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=2277.917mil|Location2.X=2301.506mil|Location1.Y=4562.091mil|Location2.Y=4596.29mil|Absolute=True">Net Antennae: Track (2286.417mil,4505.394mil)(2286.417mil,4570.591mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br><a name="IDDT15FNVQ1P1MNSPGWE4Q5PPILMOZLEXICGEWTPOWWRJTOSL2AKP"><table>
+<tr>
+<th style="text-align : left" colspan="1" class="rule">Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC'))</th>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-798.031mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5211.929mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-798.031mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5211.929mil|Absolute=True">Room Definition: Between Component RESET-Button (-675mil,5020mil) on Top Layer And Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-462.008mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5595.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-462.008mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5595.197mil|Absolute=True">Room Definition: Between Component X1-16MHz (-400mil,5545mil) on Top Layer And Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-290.394mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5835.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-290.394mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5835.394mil|Absolute=True">Room Definition: Between LCC Component U1-ATMEGA328P (-65mil,5610mil) on Top Layer And Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5530.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5530.197mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C1-0.1uF (250mil,5480mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5595.394mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5595.394mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C2-0.1uF (250mil,5545.197mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5660.591mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5660.591mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C3-0.1uF (250mil,5610.394mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5725.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5725.787mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C4-0.1uF (250mil,5675.591mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-467.913mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5507.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-467.913mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5507.323mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C5-22pF (-400mil,5465mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-467.913mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5667.323mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-467.913mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5667.323mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component C6-22pF (-400mil,5625mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-480.433mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6048.543mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-480.433mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6048.543mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component DS1-BLUE LED (-445mil,5978.661mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-609.528mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6070.787mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-609.528mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6070.787mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component DS2-Orange (-580mil,5995mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-546.654mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6030.197mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-546.654mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6030.197mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component DS3-GREEN LED (-525mil,5980mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-409.527mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6049.882mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-409.527mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6049.882mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component DS4-Red Adj (-380mil,5980mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5785.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5785.354mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component R1-270 Ohm (250mil,5745mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5855.354mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=0mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5855.354mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component R2-270 Ohm (250mil,5815mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.354mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6017.913mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-0.354mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6017.913mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component R3-270 Ohm (40mil,5950mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_odd" onmouseover="className = 'onmouseover_odd'" onmouseout="className = 'onmouseout_odd'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-70.354mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6017.913mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-70.354mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=6017.913mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component R4-270 Ohm (-30mil,5950mil) on Top Layer </acronym></a><br></td>
+</tr>
+<tr class="onmouseout_even" onmouseover="className = 'onmouseover_even'" onmouseout="className = 'onmouseout_even'">
+<td class="column1"><a href="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-603.701mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5296.417mil|Absolute=True" class="callback"><acronym title="dxpprocess://PCB:Zoom?document=C:\ORL\Car\PCB\Car_PCB\PCBII.PcbDoc;viewname=PCBEditor;Action=AREA_DYNAMICZOOM|Location1.X=-603.701mil|Location2.X=2000mil|Location1.Y=1105mil|Location2.Y=5296.417mil|Absolute=True">Room Definition: Between Room [02]-IC (Bounding Region = (0mil, 1105mil, 2000mil, 2105mil) (InComponentClass('[02]-IC')) And SMT Small Component R5-1k (-585mil,5260mil) on Top Layer </acronym></a><br></td>
+</tr>
+</table></a><hr color="#EEEEEE"><a href="#top" style="font-size: 0.9em">Back to top</a><br><br></body>
+</html>
